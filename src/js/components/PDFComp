@@ -1,0 +1,22 @@
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux'
+import { getBook } from '../actions/books'
+
+class PDFComp extends Component {
+	componentDidMount() {
+		const { url_pdf } = this.props
+		dispatch(getDocument(url_pdf))
+	}
+	render() {
+	}
+}
+
+
+function mapStateToProps(state, props) {
+	const { PDFJS } = state
+	return {
+		PDFJS:  PDFJS
+		url_pdf: url_pdf
+	}
+}
+export default connect(mapStateToProps)(PDFComp)

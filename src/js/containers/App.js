@@ -1,53 +1,35 @@
 import React, { Component, PropTypes } from 'react';
-import {connect} from 'react-redux'
-import {initBooks} from '../actions/books'
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
+import { initBooks } from '../actions/books'
+import  TopMenu  from '../components/TopMenu'
 
 class App extends Component {
 	componentDidMount() {
-		const {dispatch}  = this.props
-		console.log(initBooks)
-		dispatch(initBooks())
+		initBooks()
 	}
 	componentWillReceiveProps() {
 	}
-	renderBooks() {
-		const {books} = this.props
-		console.log(this.props)
-		console.log("Received Books: ", books)
-		if (!books.length) {
-			return (<div></div>)
-		}
-		return (
-				<ul>
-				{ books.map((book, id) => 
-							<li key={id}>
-							<h2> {book.title}</h2>
-							</li>
-						   )}
-			</ul>
-		)
-	}
 	render() {
-
-		const {isFetching, lastUpdate} = this.props
+		const { children } = this.props
 		return (
-				<div>
-				<h2> Fetching {isFetching} </h2>
-				<h1>Hello, world. {lastUpdate} </h1>
-				{this.renderBooks()}
-				</div>
+			<div>
+				<TopMenu title="Hello"/>
+				{children}
+			</div>
 		)
 	}
 }
 
 App.propTypes = {
-	dispatch: PropTypes.func.isRequired
+	push: PropTypes.func.isRequired,
+	children: PropTypes.node
 }
 
 
 function mapStateToProps(state) {
 
-	const {isFetching, lastUpdate, books} = state.books
+	const { isFetching, lastUpdate, books } = state.books
 	return {
 		isFetching: isFetching,
 		lastUpdate: lastUpdate,
@@ -55,4 +37,4 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, {push})(App)

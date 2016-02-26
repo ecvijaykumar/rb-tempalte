@@ -37,9 +37,11 @@ router.use(function(req, res, next){
 });
 
 router.get('/getPopularBooks', function(req, res) {
-	res.json({data: [
-		{"books" : {"title": "vishnu"}},
-		{"books" : { "title": "krishna"}}
+	res.json({books: [
+		{ "title" : "vishnu"},
+		{ "title" : "krishna"},
+		{ "title" : "Rama"},
+		{ "title" : "Keshava"}
 	]});
 
 })
